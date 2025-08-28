@@ -1,0 +1,3 @@
+-- Active: 1744137910213@@127.0.0.1@5432
+
+CREATE DATABASE sustentavel;
