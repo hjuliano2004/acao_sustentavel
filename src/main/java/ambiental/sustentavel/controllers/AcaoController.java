@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ambiental.sustentavel.dtos.AcaoRequest;
 import ambiental.sustentavel.dtos.AcaoResponse;
+import ambiental.sustentavel.enums.CategoriaAcao;
 import ambiental.sustentavel.services.AcaoServices.AcaoServicesIn;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -39,15 +41,20 @@ public class AcaoController {
     }
     
     @PutMapping("{id}")
-    public AcaoResponse put(@PathVariable Long id, @Valid @RequestBody AcaoRequest acaoRequest){
+    public AcaoResponse put(@PathVariable @Min(1) Long id, @Valid @RequestBody AcaoRequest acaoRequest){
         return service.put(id, acaoRequest);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable @Min(1) Long id){
 
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-    
+
+    @GetMapping("/categoria/{tipo}")
+    public List<AcaoResponse> porCategoria(@PathVariable CategoriaAcao tipo){
+
+        return service.findByCategoriAcao(tipo);
+    }
 }

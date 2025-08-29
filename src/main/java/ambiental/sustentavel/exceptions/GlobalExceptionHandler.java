@@ -1,10 +1,15 @@
 package ambiental.sustentavel.exceptions;
 
+import java.util.Arrays;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import ambiental.sustentavel.enums.CategoriaAcao;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -42,6 +47,22 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errorResponse,  HttpStatus.BAD_REQUEST);
     }
+    
+
+    
+
+@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<String> handleEnumConversionError(MethodArgumentTypeMismatchException ex) {
+                       ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body("Categoria inválida. Valores permitidos: " + String.join(", ", 
+                    Arrays.stream(CategoriaAcao.values()).map(Enum::name).toList()));
+        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Parâmetro inválido.");
+    }
+
+
+
+    
 
     
 } 

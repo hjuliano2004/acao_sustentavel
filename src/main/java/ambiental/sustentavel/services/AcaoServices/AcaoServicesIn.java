@@ -51,6 +51,11 @@ public class AcaoServicesIn implements AcaoServices{
     }
 
     public List<AcaoResponse> findByCategoriAcao(CategoriaAcao categoriaAcao){
+
+        if(categoriaAcao == null){
+            throw new BadRequestException("a categoria não pode ser nula");
+        }
+        
         return AcaoMapper.responseList(repository.findByCategoriaAcao(categoriaAcao));
     }
     
