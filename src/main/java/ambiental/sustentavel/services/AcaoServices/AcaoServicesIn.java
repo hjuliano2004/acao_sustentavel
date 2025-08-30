@@ -47,7 +47,10 @@ public class AcaoServicesIn implements AcaoServices{
     }
 
     public void delete(Long id){
-        //nada
+        if(!repository.existsById(id)){
+            throw new NotFoundException("ação id: " + id + " não existe");
+        }
+        repository.deleteById(id);
     }
 
     public List<AcaoResponse> findByCategoriAcao(CategoriaAcao categoriaAcao){

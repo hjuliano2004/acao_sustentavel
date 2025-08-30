@@ -34,6 +34,11 @@ public class AcaoController {
         return service.findAll();
     }
 
+    @GetMapping("{id}")
+    public AcaoResponse findById(@PathVariable @Min(1) Long id){
+        return service.findById(id); 
+    }
+
     @PostMapping
     public AcaoResponse post(@Valid @RequestBody AcaoRequest acaoRequest) {
 
