@@ -3,7 +3,7 @@ package ambiental.sustentavel.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("acao")
 public class AcaoController {
 
@@ -51,15 +52,14 @@ public class AcaoController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable @Min(1) Long id){
+    public void delete(@PathVariable @Min(1) Long id){
 
         service.delete(id);
-        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/categoria/{tipo}")
     public List<AcaoResponse> porCategoria(@PathVariable CategoriaAcao tipo){
 
-        return service.findByCategoriAcao(tipo);
+        return service.findByCategoria(tipo);
     }
 }

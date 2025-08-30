@@ -12,13 +12,13 @@ import ambiental.sustentavel.enums.CategoriaAcao;
 import ambiental.sustentavel.exceptions.BadRequestException;
 import ambiental.sustentavel.exceptions.RecursoNaoEncontradoException;
 import ambiental.sustentavel.mappers.AcaoMapper;
-import ambiental.sustentavel.repositories.AcaoRepositorie;
+import ambiental.sustentavel.repositories.AcaoRepository;
 
 @Service
 public class AcaoServicesIn implements AcaoServices{
 
     @Autowired
-    private AcaoRepositorie repository;
+    private AcaoRepository repository;
 
     public List<AcaoResponse> findAll(){
         return AcaoMapper.responseList(repository.findAll());
@@ -43,7 +43,21 @@ public class AcaoServicesIn implements AcaoServices{
     }
 
     public AcaoResponse put(Long id, AcaoRequest acaoRequest ){
-        return null;
+
+        if(acaoRequest == null){
+            throw new BadRequestException("sua requisição está vazia");
+        }
+
+        if(!repository.existsById(id)){
+            throw new RecursoNaoEncontradoException("ação id: " + id + " não existe");
+        }
+
+        Acao acao = AcaoMapper.toEntity(acaoRequest);
+        acao.setId(id);
+
+        Acao salvo = repository.save(acao);
+
+        return AcaoMapper.toDto(salvo);
     }
 
     public void delete(Long id){
@@ -53,13 +67,13 @@ public class AcaoServicesIn implements AcaoServices{
         repository.deleteById(id);
     }
 
-    public List<AcaoResponse> findByCategoriAcao(CategoriaAcao categoriaAcao){
+    public List<AcaoResponse> findByCategoria(CategoriaAcao categoriaAcao){
 
         if(categoriaAcao == null){
             throw new BadRequestException("a categoria não pode ser nula");
         }
         
-        return AcaoMapper.responseList(repository.findByCategoriaAcao(categoriaAcao));
+        return AcaoMapper.responseList(repository.findByCategoria(categoriaAcao));
     }
     
 }

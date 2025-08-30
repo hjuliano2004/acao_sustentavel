@@ -17,6 +17,6 @@ public interface AcaoServices{
 
     public void delete(Long id);
 
-    public List<AcaoResponse> findByCategoriAcao(CategoriaAcao categoriaAcao);
+    public List<AcaoResponse> findByCategoria(CategoriaAcao categoriaAcao);
 
 }

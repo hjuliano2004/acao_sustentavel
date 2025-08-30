@@ -53,11 +53,12 @@ public class GlobalExceptionHandler {
 
 @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<String> handleEnumConversionError(MethodArgumentTypeMismatchException ex) {
-                       ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body("Categoria inválida. Valores permitidos: " + String.join(", ", 
                     Arrays.stream(CategoriaAcao.values()).map(Enum::name).toList()));
         
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Parâmetro inválido.");
+         //ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Parâmetro inválido.");
     }
 
 

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import ambiental.sustentavel.enums.CategoriaAcao;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
+@Entity
 @Table
 public class Acao {
 
