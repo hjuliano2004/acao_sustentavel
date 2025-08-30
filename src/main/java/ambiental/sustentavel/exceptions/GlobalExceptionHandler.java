@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
     private ResponseEntity<ErrorResponse>handlerNotFound(Exception ex){
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);

@@ -10,7 +10,7 @@ import ambiental.sustentavel.dtos.AcaoResponse;
 import ambiental.sustentavel.entities.Acao;
 import ambiental.sustentavel.enums.CategoriaAcao;
 import ambiental.sustentavel.exceptions.BadRequestException;
-import ambiental.sustentavel.exceptions.NotFoundException;
+import ambiental.sustentavel.exceptions.RecursoNaoEncontradoException;
 import ambiental.sustentavel.mappers.AcaoMapper;
 import ambiental.sustentavel.repositories.AcaoRepositorie;
 
@@ -27,7 +27,7 @@ public class AcaoServicesIn implements AcaoServices{
     public AcaoResponse findById(Long id){
 
         if(!repository.existsById(id)){
-            throw new NotFoundException("ação id: " + id + " não existe!");
+            throw new RecursoNaoEncontradoException("ação id: " + id + " não existe!");
         }
         return AcaoMapper.toDto(repository.findById(id).get());
     }
@@ -48,7 +48,7 @@ public class AcaoServicesIn implements AcaoServices{
 
     public void delete(Long id){
         if(!repository.existsById(id)){
-            throw new NotFoundException("ação id: " + id + " não existe");
+            throw new RecursoNaoEncontradoException("ação id: " + id + " não existe");
         }
         repository.deleteById(id);
     }
